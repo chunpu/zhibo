@@ -5,17 +5,20 @@ var request = require('request')
 var route = express.Router()
 var spider = require('./spider')
 var data = require('./data')
+var wechat = require('./wechat/services')
 
 // 防抓取技巧, 懒加载
 
 runSpider()
 
-setInterval(runSpider, 10000)
+setInterval(runSpider, 100000)
 
 app.engine('jade', require('jade').__express).set('views', __dirname + '/views')
 
 app
     .use(express.static(__dirname + '/static'))
+    .use(route.get('/wechat/authenticate', wechat.authenticate))
+    .use(route.post('/wechat/reply', wechat.reply))
     .use(route.get('/', function(req, res) {
     var items = merge()
     res.render('index.jade', {
