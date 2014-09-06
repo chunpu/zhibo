@@ -1,0 +1,21 @@
+{
+  "name": "zhibo.tv",
+  "version": "0.0.0",
+  "description": "",
+  "main": "data.js",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "express": "^4.8.8",
+    "jade": "^1.6.0",
+    "kraken-js": "^1.0.3",
+    "request": "^2.42.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
