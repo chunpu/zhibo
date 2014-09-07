@@ -1,18 +1,30 @@
+mixin item(item)
+    li
+        a.img(href=item.href)
+            img(src=item.img)
+        .info
+            a.title(href=item.href)= item.title
+            p
+                i &#xe601;
+                span.anchor= item.anchor
+                i &#xe600;
+                span.people= item.people
+                i &#xe603;
+                span.gameType= item.gameType
+
+mixin column(title, items)
+    if items
+        .column
+            h1= title
+            ul.items
+                each item in items
+                    +item(item)
+
 extend layout
 block content
-    .items
-        each item in items
-            li
-                a.img(href=item.href)
-                    img(src=item.img)
-                // mask
-                .info
-                    a.title(href=item.href)= item.title
-                    p
-                        i &#xe601;
-                        span.anchor= item.anchor
-                        i &#xe600;
-                        span.people= item.people
-                        i &#xe603;
-                        span.gameType= item.gameType
+    +column('当前最热', locals.hot)
+    +column('英雄联盟', locals['英雄联盟'])
+    +column('DOTA2', locals['DOTA2'])
+    +column('炉石传说', locals['炉石传说'])
+    +column('其他', locals['其他'])
 end block

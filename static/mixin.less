@@ -1,0 +1,54 @@
+/*
+ * useful mixin
+ */
+
+.clearfix() {
+  &:before,
+  &:after {
+    content: ''; // never care opera
+    display: table; // not block to avoid margin collapse
+  }
+  &:after {
+    clear: both; // after is the one clear floats
+  }
+  *zoom: 1; // for IE
+}
+
+.center() {
+  // need a width by self, not a var mixin
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.size(@width, @height) {
+  width: @width;
+  height: @height;
+}
+
+.placeholder(@color: @color) {
+  &:-ms-input-placeholder,
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+}
+
+.text-overflow(@type: @text-overflow) {
+  overflow: hidden;
+  text-overflow: @text-overflow;
+  white-space: nowrap;
+}
+
+.user-select(@v: none) {
+  -webkit-user-select: @v;
+  -moz-user-select: @v;
+  -ms-user-select: @v;
+  user-select: @v;
+}
+
+.opacity(@v) {
+  opacity: @v;
+  // for ie8-
+  @value4ie: (@v * 100);
+  filter: ~"alpha(opacity=@{value4ie})";
+}

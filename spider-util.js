@@ -16,14 +16,14 @@ util.people = function(number) {
 
 var match = {
     '英雄联盟': ['lol'],
-    'dota2': [],
+    'DOTA2': [],
     '炉石传说': ['炉石']
 }
 
 util.gameType = function(gameType) {
     var ret = '其他'
     if (typeof gameType != 'string') return ret
-    gameType = gameType.toLowerCase()
+    gameType = gameType.toUpperCase()
     for (var k in match) {
         if (gameType == k) return k
         else {
