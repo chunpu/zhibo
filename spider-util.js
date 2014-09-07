@@ -9,7 +9,7 @@ function util(obj) {
 util.people = function(number) {
     number = number + ''
     if (number.indexOf('万') != -1) {
-        number = parseFloat(number) * 1000
+        number = parseFloat(number) * 10000
     }
     return ~~number
 }
