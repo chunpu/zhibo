@@ -48,9 +48,13 @@ function merge() {
     })
 }
 
+function alert(err) {
+    console.log(err)
+}
+
 function runSpider() {
     console.log('spider run')
     for (var k in spider) {
-        spider[k]()
+        spider[k](alert)
     }
 }

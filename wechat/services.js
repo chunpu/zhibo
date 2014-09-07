@@ -2,7 +2,7 @@ var config = require('../config')
 var weixinUtil = require('./util')
 var crypto = require('crypto')
 
-console.log(weixinUtil)
+//console.log(weixinUtil)
 
 // TODO (yutingzhao): 群发消息
 
