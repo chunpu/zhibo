@@ -23,12 +23,21 @@ li {
   margin: 0 auto;
   width: 1200px;
 }
+h1,
+h2 {
+  font-family: 'Microsoft YaHei', Helvetica;
+}
+.column {
+  padding: 25px 0;
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 2px solid #EBE9E9;
+}
 .column h1 {
   margin-bottom: 20px;
 }
 .column .items {
-  margin-bottom: 40px;
   *zoom: 1;
+  margin-left: -10px;
 }
 .column .items:before,
 .column .items:after {
@@ -39,15 +48,15 @@ li {
   clear: both;
 }
 .items li {
-  width: 370px;
-  margin-right: 15px;
-  margin-bottom: 15px;
+  width: 23.33333333%;
+  margin: 0 10px;
+  margin-bottom: 20px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
 }
 .items li img {
   width: 100%;
-  height: 200px;
+  height: 156.8px;
   display: block;
 }
 .items li .info {

@@ -26,7 +26,7 @@ app
 
 var sites = 'zhanqi douyu'.split(' ')
 
-var COL = 3 // 每行3个
+var COL = 4 // 每行3个
 
 function merge() {
     var uniq = {}
@@ -50,7 +50,7 @@ function merge() {
     'DOTA2 英雄联盟 炉石传说 其他'.split(' ').forEach(function(x) {
         ret[x] = items.filter(function(item) {
             return item._gameType == x
-        }).slice(0, COL * 3)
+        }).slice(0, COL * 2)
     })
     ret.hot = items.slice(0, COL * 2)
     ret.items = items
