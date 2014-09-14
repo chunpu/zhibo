@@ -1,0 +1,16 @@
+mixin new(article)
+    item
+        Title <![CDATA[#{article.title}]]>
+        Description <![CDATA[#{article.description}]]>
+        PicUrl <![CDATA[#{article.picurl}]]>
+        Url <![CDATA[#{article.url}]]>
+
+xml
+    ToUserName <![CDATA[#{toUser}]]>
+    FromUserName <![CDATA[#{fromUser}]]>
+    CreateTime #{createTime}
+    MsgType <![CDATA[news]]>
+    ArticleCount #{articleCount}
+    Articles
+        each article in articles
+            +new(article)

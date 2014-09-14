@@ -2,6 +2,8 @@ var config = require('../config')
 var weixinUtil = require('./util')
 var crypto = require('crypto')
 
+var zhiboData = require('../data')
+
 //console.log(weixinUtil)
 
 // TODO (yutingzhao): 群发消息
@@ -63,15 +65,39 @@ function reply(req, res, next){
     })
 }
 
+function getNewDescription(item) {
+    return item.title + ' 主播：' + item.anchor + ' 观看人数：' + item.people
+}
+
 function getReplyContent(data, callback) {
-    // TODO(yutingzhao): use real data
+    // TODO(yutingzhao): use all site data
+    var replyData = zhiboData.douyu
+    if (replyData.length <= 0) {
+        callback && callback({
+            msgType: 'text',
+            toUser: data.fromUser,
+            fromUser: config.wechatAccount,
+            createTime: Date.now(),
+            content: '感谢您的反馈，我们会努力做得更好'
+        })
+        return
+    }
+    var articles = []
+    for (var i = 0; i < replyData.length && i < 3; i ++) {
+        articles.push({
+            title: replyData[i].title,
+            description: getNewDescription(replyData[i]),
+            picurl: replyData[i].img,
+            url: replyData[i].href
+        })
+    }
     callback && callback({
-        msgType: 'text',
+        msgType: 'news',
         toUser: data.fromUser,
         fromUser: config.wechatAccount,
-        funcFlag: 1,
+        articleCount: articles.length,
         createTime: Date.now(),
-        content: '感谢您的反馈，我们会努力做得更好'
+        articles: articles
     })
 }
 
