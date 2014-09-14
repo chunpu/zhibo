@@ -17,8 +17,8 @@ app.engine('jade', require('jade').__express).set('views', __dirname + '/views')
 
 app
     .use(express.static(__dirname + '/static'))
-    .use(route.get('/wechat/authenticate', wechat.authenticate))
-    .use(route.post('/wechat/reply', wechat.reply))
+    .use(route.get('/wechat/juzhibotv', wechat.authenticate))
+    .use(route.post('/wechat/juzhibotv', wechat.reply))
     .use(route.get('/', function(req, res) {
     var locals = merge()
     res.render('index.jade', locals)

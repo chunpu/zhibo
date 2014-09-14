@@ -68,7 +68,7 @@ function getReplyContent(data, callback) {
     callback && callback({
         msgType: 'text',
         toUser: data.fromUser,
-        fromUser: data.toUser,
+        fromUser: config.wechatAccount,
         funcFlag: 1,
         createTime: Date.now(),
         content: '感谢您的反馈，我们会努力做得更好'

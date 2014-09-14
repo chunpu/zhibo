@@ -1,3 +1,4 @@
 module.exports = {
-    wechatToken: 'need todo get from wechat public account'
+    wechatToken: 'juzhibo_iqiyi2014',
+    wechatAccount: 'juzhibotv'
 }
