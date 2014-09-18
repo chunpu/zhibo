@@ -11,7 +11,7 @@ var MIN_LEN = 10
 var urls = {
     douyu: 'http://www.douyutv.com/',
     //zhanqi: 'http://www.zhanqi.tv/lives'// http://www.zhanqi.tv/api/static/live.hots/30-1.json
-    zhanqi: 'http://www.zhanqi.tv/api/static/live.hots/10-1.json'
+    zhanqi: 'http://www.zhanqi.tv/api/static/live.hots/200-1.json'
 }
 
 // 使用更牛逼的接口 GET: http://www.douyutv.com/directory/all?offset=0&limit=100 一次100个
