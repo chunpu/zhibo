@@ -10,7 +10,8 @@ var MIN_LEN = 10
 
 var urls = {
     douyu: 'http://www.douyutv.com/',
-    zhanqi: 'http://www.zhanqi.tv/lives'
+    //zhanqi: 'http://www.zhanqi.tv/lives'// http://www.zhanqi.tv/api/static/live.hots/30-1.json
+    zhanqi: 'http://www.zhanqi.tv/api/static/live.hots/10-1.json'
 }
 
 // 使用更牛逼的接口 GET: http://www.douyutv.com/directory/all?offset=0&limit=100 一次100个
@@ -32,6 +33,7 @@ exports.douyu = function(cb) {
         var $ = cheerio.load(ret.join(''))
         var arr = $('li')
         if (arr.length < MIN_LEN) return cb('too short')
+        console.log('douyu', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)
@@ -53,11 +55,28 @@ exports.douyu = function(cb) {
 
 exports.zhanqi = function(cb) {
     cb = cb || noop
-    request(urls.zhanqi, function(err, res, body) {
+    request({
+        url: urls.zhanqi,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.103 Safari/537.36',
+            'Referer': 'Referer:http://www.zhanqi.tv/lives'
+        }
+    }, function(err, res, body) {
         if (err) return cb(err)
+        if ('string' == typeof body) {
+            try {
+                body = JSON.parse(body)
+                body = body.data.rooms
+            } catch (e) {
+                return cb('zhanqi parse error')
+            }
+        }
+        /*
         var $ = cheerio.load(body)
         var arr = $('.live-list-tabc li')
         if (arr.length < 10) return cb('too short')
+        console.log('zhanqi', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)
@@ -72,6 +91,20 @@ exports.zhanqi = function(cb) {
             }
             util(obj)
             ret.push(obj)
+        })*/
+        if (body.length < 10) return cb('too short')
+        var ret = body.map(function(x) {
+            var a = {
+                href: x.url,
+                img: x.bpic,
+                title: x.title,
+                anchor: x.nickname,
+                gameType: x.gameName,
+                people: x.online,
+                baseurl: urls.zhanqi
+            }
+            util(a)
+            return a
         })
         data.zhanqi = ret
     })

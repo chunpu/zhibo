@@ -38,9 +38,12 @@ util.gameType = function(gameType) {
 }
 
 util.url = function(base, path) {
-    var obj = url.parse(base)
-    obj.pathname = path
-    return url.format(obj)
+    var base = url.parse(base)
+    return url.format({
+        protocol: base.protocol,
+        host: base.host,
+        pathname: path
+    })
 }
 
 module.exports = util
