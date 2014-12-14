@@ -38,13 +38,14 @@ exports.douyu = function(cb) {
         arr.each(function() {
             var me = $(this)
             var obj = {
-                href: me.find('.list').attr('href'),
-                img: me.find('img').attr('src'),
-                title: me.find('.title').text(),
-                anchor: me.find('.nnt').text(),
-                people: me.find('.view').text(),
-                gameType: me.find('.zbName').text(),
-                baseurl: urls.douyu
+                  href: me.find('.list').attr('href')
+                , img: me.find('img').attr('data-original')
+                , title: me.find('.title').text()
+                , anchor: me.find('.nnt').text()
+                , people: me.find('.view').text()
+                , gameType: me.find('.zbName').text()
+                , baseurl: urls.douyu
+                , platform: '斗鱼'
             }
             util(obj)
             ret.push(obj)
@@ -95,13 +96,14 @@ exports.zhanqi = function(cb) {
         if (body.length < 10) return cb('too short')
         var ret = body.map(function(x) {
             var a = {
-                href: x.url,
-                img: x.bpic,
-                title: x.title,
-                anchor: x.nickname,
-                gameType: x.gameName,
-                people: x.online,
-                baseurl: urls.zhanqi
+                  platform: '战旗'
+                , href: x.url
+                , img: x.bpic
+                , title: x.title
+                , anchor: x.nickname
+                , gameType: x.gameName
+                , people: x.online
+                , baseurl: urls.zhanqi
             }
             util(a)
             return a

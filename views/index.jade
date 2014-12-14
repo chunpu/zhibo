@@ -10,7 +10,7 @@ mixin item(item)
                 i &#xe600;
                 span.people= item.people
                 i &#xe603;
-                span.gameType= item.gameType
+                span.gameType= item.platform + '@' + item.gameType
 
 mixin column(title, items)
     if items
