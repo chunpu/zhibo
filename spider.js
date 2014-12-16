@@ -11,7 +11,8 @@ var MIN_LEN = 10
 var urls = {
     douyu: 'http://www.douyutv.com/',
     //zhanqi: 'http://www.zhanqi.tv/lives'// http://www.zhanqi.tv/api/static/live.hots/30-1.json
-    zhanqi: 'http://www.zhanqi.tv/api/static/live.hots/200-1.json'
+    zhanqi: 'http://www.zhanqi.tv/api/static/live.hots/200-1.json',
+    huomao: 'http://www.huomaotv.com/'
 }
 
 // 使用更牛逼的接口 GET: http://www.douyutv.com/directory/all?offset=0&limit=100 一次100个
@@ -109,5 +110,41 @@ exports.zhanqi = function(cb) {
             return a
         })
         data.zhanqi = ret
+    })
+}
+
+exports.huomao = function(cb) {
+    cb = cb || noop
+    request({
+        url: 'http://www.huomaotv.com/live_list',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.103 Safari/537.36',
+            'Referer': 'http://www.huomaotv.com/'
+        }
+    }, function(err, res, body) {
+        if (err) {
+            return cb(err)
+        }
+        var $ = cheerio.load(body)
+        var arr = $('.VOD')
+        console.log('huomao', arr.length)
+        var ret = []
+        arr.each(function() {
+            var me = $(this)
+            var obj = {
+                  href: me.find('.VOD_pic dd a').attr('href')
+                , img: urls.huomao + me.find('.VOD_pic img').attr('data-src')
+                , title: me.find('.VOD_title a').text()
+                , anchor: me.find('.LiveAuthor').text()
+                , people: me.find('.fans').text()
+                , gameType: me.find('.titleMb').text().trim()
+                , baseurl: urls.huomao
+                , platform: '火猫'
+            }
+            util(obj)
+            ret.push(obj)
+        })
+        data.huomao = ret
     })
 }

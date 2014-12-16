@@ -10,14 +10,27 @@ a {
   text-decoration: none;
 }
 body {
-  background: #f0f0f0;
+  background: #ffffff;
   font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, "Microsoft YaHei", Tohoma, Arial;
   color: #444444;
-  padding: 100px 0;
+  padding: 0;
 }
 li {
   list-style: none;
   float: left;
+}
+header {
+  height: 100px;
+  background-color: #484848;
+  color: #eeeeee;
+}
+header .logo {
+  font-size: 50px;
+  line-height: 80px;
+}
+header .description {
+  margin-left: 280px;
+  margin-top: -20px;
 }
 #main {
   text-align: center;
@@ -53,14 +66,33 @@ h2 {
 }
 .items li {
   width: 23.33333333%;
-  margin: 0 10px;
+  margin: 0 8px;
   margin-bottom: 20px;
   background: #fff;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  border: 1px solid #eee;
 }
 .items li img {
   width: 100%;
   height: 156.8px;
+  display: block;
+}
+.items li .img {
+  display: block;
+  position: relative;
+}
+.items li .icon-play {
+  width: 69px;
+  height: 69px;
+  background: url("img/icon-play.png") no-repeat 0 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -35px;
+  margin-top: -35px;
+  display: none;
+}
+.items li .img:hover .icon-play {
   display: block;
 }
 .items li .info {

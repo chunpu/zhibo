@@ -6,6 +6,7 @@ var route = express.Router()
 var spider = require('./spider')
 var data = require('./data')
 var wechat = require('./wechat/services')
+var config = require('./config')
 
 // 防抓取技巧, 懒加载
 
@@ -22,9 +23,9 @@ app
     .use(route.get('/', function(req, res) {
     var locals = merge()
     res.render('index.jade', locals)
-})).listen(process.argv[2] || 8888)
+})).listen(process.argv[2] || config.port)
 
-var sites = 'zhanqi douyu'.split(' ')
+var sites = 'zhanqi douyu huomao'.split(' ')
 
 var COL = 4 // 每行3个
 

@@ -11,10 +11,10 @@ a {
 }
 
 body {
-    background: #f0f0f0;
+    background: #ffffff;
     font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, "Microsoft YaHei", Tohoma, Arial;
     color: @color;
-    padding: 100px 0;
+    padding: 0;
 }
 
 li {
@@ -25,6 +25,20 @@ li {
 @width: 1200px;
 @margin: 20px;
 @number: 4;
+
+header {
+    height: 100px;
+    background-color: #484848;
+    color: #eeeeee;
+    .logo {
+        font-size: 50px;
+        line-height: 80px;
+    }
+    .description {
+        margin-left: 280px;
+        margin-top: -20px;
+    }
+}
 
 #main {
     text-align: center;
@@ -56,13 +70,32 @@ h1, h2 {
 .items li {
     @li-width: (@width - (@number) * @margin) / @number;
     width: percentage(@li-width / @width);
-    margin: 0 @margin / 2;
+    margin: 0 @margin / 2 - 2;
     margin-bottom: @margin;
     background: #fff;
     box-shadow: 0 1px 2px rgba(0,0,0,0.07);
+    border: 1px solid #eee;
     img {
         width: 100%;
         height: @li-width * 56 / 100;
+        display: block;
+    }
+    .img {
+        display: block;
+        position: relative;
+    }
+    .icon-play {
+        width: 69px;
+        height: 69px;
+        background: url("img/icon-play.png") no-repeat 0 0;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -35px;
+        margin-top: -35px;
+        display: none;
+    }
+    .img:hover .icon-play{
         display: block;
     }
     .info {
