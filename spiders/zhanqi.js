@@ -25,6 +25,8 @@ module.exports = function(cb) {
             } catch (e) {
                 return cb('zhanqi parse error')
             }
+        } else {
+            return cb('zhan qi response is not string')
         }
         if (body.length < 10) return cb('too short')
         var ret = body.map(function(x) {

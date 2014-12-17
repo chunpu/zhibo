@@ -17,7 +17,8 @@ util.people = function(number) {
 var match = {
     '英雄联盟': ['lol'],
     'DOTA2': [],
-    '炉石传说': ['炉石']
+    '炉石传说': ['炉石'],
+    '看球': []
 }
 
 util.gameType = function(gameType) {

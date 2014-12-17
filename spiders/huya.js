@@ -3,6 +3,7 @@ var cheerio = require('cheerio')
 var request = require('request')
 var util = require('./util')
 var async = require('async')
+var debug = require('debug')('huya')
 
 var BASE_URL = 'http://www.huya.com/'
 
@@ -20,19 +21,25 @@ module.exports = function(cb) {
         if (err) {
             return cb(err)
         }
-        var $ = cheerio.load(body)
-        console.log(body)
-        var arr = $('.video-list-item')
-        console.log('huya show', arr.length)
+        if ('string' == typeof body) {
+            body = /videoList\s*=\s*(\[[^\[\]]+\])/.exec(body)[1]
+            try {
+                arr = JSON.parse(body)
+            } catch (e) {
+                return cb('huya parse error')
+            }
+        } else {
+            return cb('huya response is not string')
+        }
+        debug('huya show', arr.length)
         var ret = []
-        arr.each(function() {
-            var me = $(this)
+        arr.forEach(function(me) {
             var obj = {
-                  href: me.find('a.video-info').attr('href')
-                , img: BASE_URL + me.find('img.pic').attr('src')
-                , title: me.find('.VOD_title a').text()
-                , anchor: me.find('.game-anchor h5').text()
-                , people: parseInt(me.find('.icon-p').text())
+                  href: BASE_URL + me.yyid
+                , img: me.screenshot
+                , title: me.nick
+                , anchor: me.nick
+                , people: me.userCount
                 , gameType: '看球'
                 , baseurl: BASE_URL
                 , platform: '虎牙'
