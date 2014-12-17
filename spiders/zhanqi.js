@@ -3,6 +3,7 @@ var cheerio = require('cheerio')
 var request = require('request')
 var util = require('./util')
 var async = require('async')
+var debug = require('debug')('zhanqi')
 
 var BASE_URL = 'http://www.zhanqi.tv/'
 

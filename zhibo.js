@@ -7,12 +7,13 @@ var spiders = require('./spiders')
 var data = require('./data')
 var wechat = require('./wechat/services')
 var config = require('./config')
+var debug = require('debug')('zhibo')
 
 // 防抓取技巧, 懒加载
 
-runSpider()
+runSpiders()
 
-setInterval(runSpider, 100000)
+setInterval(runSpiders, 100000)
 
 app.engine('jade', require('jade').__express).set('views', __dirname + '/views')
 
@@ -26,7 +27,7 @@ app
     res.render('index.jade', locals)
 })).listen(process.argv[2] || config.port)
 
-var sites = 'zhanqi douyu huomao huya'.split(' ')
+var sites = 'zhanqi douyu huomao'.split(' ')
 
 var COL = 4 // 每行3个
 
@@ -60,20 +61,25 @@ function merge() {
 }
 
 function alert(err) {
-    console.log(err)
+    console.error(err)
 }
 
-function runSpider() {
+function runSpider(name, spider) {
+    spider(function (err, items) {
+        if (err) {
+            alert(err)
+        } else {
+            debug('update %s', name)
+            data[name] = items
+        }
+    })
+}
+
+function runSpiders() {
     console.log('spider run')
     for (var k in spiders) {
         if (typeof spiders[k] == 'function') {
-            spiders[k](function (err, items) {
-                if (err) {
-                    alert(err)
-                } else {
-                    data[k] = items
-                }
-            })
+            runSpider(k, spiders[k])
         }
     }
 }
