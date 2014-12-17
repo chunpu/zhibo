@@ -14,3 +14,4 @@
 exports.douyu = require('./douyu')
 exports.zhanqi = require('./zhanqi')
 exports.huomao = require('./huomao')
+//exports.huya = require('./huya')
