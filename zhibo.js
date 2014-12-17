@@ -27,7 +27,7 @@ app
     res.render('index.jade', locals)
 })).listen(process.argv[2] || config.port)
 
-var sites = 'zhanqi douyu huomao huya'.split(' ')
+var sites = 'zhanqi douyu huomao huya six'.split(' ')
 
 var COL = 4 // 每行3个
 
