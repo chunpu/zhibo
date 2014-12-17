@@ -13,21 +13,23 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start zhibo.js",
+    "init": "npm install && mkdir -p dist",
+    "start": "pm2 start zhibo.js -- 8888",
     "restart": "pm2 restart zhibo",
     "stop": "pm2 delete zhibo",
     "clean": "rm -fr dist/*",
     "build": "npm ru build:css",
     "build:css": "lessc assets/styles/main.less > dist/style.css",
-    "watch": "npm ru watch:css -s",
+    "watch": "npm ru watch:css",
     "watch:css": "watch 'npm ru build:css' assets/styles/",
-    "predebug": "npm ru build",
-    "debug": "DEBUG=*,-express*,-send node zhibo.js 7777"
+    "debug:server": "DEBUG=*,-express*,-send node zhibo.js",
+    "debug": "parallelshell 'DEBUG=*,-express*,-send node zhibo.js' 'watch \"lessc assets/styles/main.less > dist/style.css\" assets/styles/'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "less": "^2.1.1",
+    "parallelshell": "^1.0.0",
     "watch": "^0.13.0"
   }
 }

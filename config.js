@@ -1,5 +1,5 @@
 module.exports = {
-    port: 8888,
+    port: 7777,
 
     wechatToken: 'juzhibo_iqiyi2014',
     wechatAccount: 'juzhibotv'
