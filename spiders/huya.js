@@ -35,7 +35,7 @@ module.exports = function(cb) {
         var ret = []
         arr.forEach(function(me) {
             var obj = {
-                  href: me.yyid
+                  href: 'show/' + me.yyid
                 , img: me.screenshot
                 , title: me.nick
                 , anchor: me.nick
