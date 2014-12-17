@@ -3,6 +3,7 @@ var request = require('request')
 var data = require('./data')
 var util = require('./spider-util')
 var async = require('async')
+var debug = require('debug')('spider')
 
 function noop() {}
 
@@ -34,7 +35,7 @@ exports.douyu = function(cb) {
         var $ = cheerio.load(ret.join(''))
         var arr = $('li')
         if (arr.length < MIN_LEN) return cb('too short')
-        console.log('douyu', arr.length)
+        debug('douyu: %d', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)
@@ -128,7 +129,7 @@ exports.huomao = function(cb) {
         }
         var $ = cheerio.load(body)
         var arr = $('.VOD')
-        console.log('huomao', arr.length)
+        debug('huomao: %d', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)
