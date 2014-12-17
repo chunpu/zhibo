@@ -6,13 +6,28 @@
   "dependencies": {
     "async": "^0.9.0",
     "cheerio": "^0.17.0",
+    "debug": "^2.1.0",
     "express": "^4.8.8",
     "jade": "^1.6.0",
     "request": "^2.42.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start zhibo.js",
+    "restart": "pm2 restart zhibo",
+    "stop": "pm2 delete zhibo",
+    "clean": "rm -fr dist/*",
+    "build": "npm ru build:css",
+    "build:css": "lessc assets/styles/main.less > dist/style.css",
+    "watch": "npm ru watch:css -s",
+    "watch:css": "watch 'npm ru build:css' assets/styles/",
+    "predebug": "npm ru build",
+    "debug": "DEBUG=*,-express*,-send node zhibo.js 7777"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "less": "^2.1.1",
+    "watch": "^0.13.0"
+  }
 }

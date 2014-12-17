@@ -18,6 +18,7 @@ app.engine('jade', require('jade').__express).set('views', __dirname + '/views')
 
 app
     .use(express.static(__dirname + '/static'))
+    .use(express.static(__dirname + '/dist'))
     .use(route.get('/wechat/juzhibotv', wechat.authenticate))
     .use(route.post('/wechat/juzhibotv', wechat.reply))
     .use(route.get('/', function(req, res) {
