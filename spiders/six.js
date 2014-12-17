@@ -33,7 +33,7 @@ module.exports = function(cb) {
         var ret = body.map(function(x) {
             var a = {
                   platform: '六间房'
-                , href: BASE_URL + x.uid
+                , href: x.uid
                 , img: x.pic
                 , title: x.username
                 , anchor: x.username
