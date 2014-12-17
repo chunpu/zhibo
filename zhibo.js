@@ -3,7 +3,7 @@ var app = express()
 var cheerio = require('cheerio')
 var request = require('request')
 var route = express.Router()
-var spider = require('./spider')
+var spiders = require('./spiders')
 var data = require('./data')
 var wechat = require('./wechat/services')
 var config = require('./config')
@@ -48,7 +48,7 @@ function merge() {
     var items = arr.sort(function(a, b) {
         return b.people - a.people
     })
-    'DOTA2 英雄联盟 炉石传说 其他'.split(' ').forEach(function(x) {
+    'DOTA2 英雄联盟 炉石传说 其他 看球'.split(' ').forEach(function(x) {
         ret[x] = items.filter(function(item) {
             return item._gameType == x
         }).slice(0, COL * 2)
@@ -64,7 +64,15 @@ function alert(err) {
 
 function runSpider() {
     console.log('spider run')
-    for (var k in spider) {
-        spider[k](alert)
+    for (var k in spiders) {
+        if (typeof spiders[k] == 'function') {
+            spiders[k](function (err, items) {
+                if (err) {
+                    alert(err)
+                } else {
+                    data[k] = items
+                }
+            })
+        }
     }
 }
