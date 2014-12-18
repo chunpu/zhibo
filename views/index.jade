@@ -21,8 +21,26 @@ mixin column(title, items)
                 each item in items
                     +item(item)
 
+mixin filter(active, all)
+    .filters
+        ul
+            if active
+                li.filter
+                    a(href='/')= '全部'
+            else
+                li.filter.active
+                    a(href='/')= '全部'
+            each item in all
+                if active == item
+                    li.filter.active
+                        a(href='/'+item)= item
+                else
+                    li.filter
+                        a(href='/'+item)= item
+
 extend layout
 block content
+    +filter(locals.type, locals.types)
     +column('当前最热', locals.hot)
     +column('英雄联盟', locals['英雄联盟'])
     +column('DOTA2', locals['DOTA2'])

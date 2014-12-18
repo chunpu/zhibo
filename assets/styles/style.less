@@ -4,7 +4,8 @@
 }
 
 
-@color: #444;
+@color: #434343;
+@hoverColor: #666;
 
 a {
     color: @color;
@@ -29,11 +30,12 @@ li {
 
 header {
     height: 100px;
-    background-color: #484848;
+    background-color: @color;
     color: #eeeeee;
     .logo {
         font-size: 50px;
         line-height: 80px;
+        color: white;
     }
     .description {
         margin-left: 280px;
@@ -64,6 +66,28 @@ footer p {
 
 h1, h2 {
     font-family: 'Microsoft YaHei', Helvetica;
+}
+
+.filters {
+    height: 40px;
+    .filter {
+        margin: 20px 10px 5px 0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        height: 22px;
+        line-height: 22px;
+    }
+    .filter:hover {
+        a {
+            color: @hoverColor;
+        }
+    }
+    .filter.active {
+        background-color: @color;
+        a {
+           color: white;
+        }
+    }
 }
 
 .column {

@@ -23,15 +23,23 @@ app
     .use(route.get('/wechat/juzhibotv', wechat.authenticate))
     .use(route.post('/wechat/juzhibotv', wechat.reply))
     .use(route.get('/', function(req, res) {
-    var locals = merge()
-    res.render('index.jade', locals)
-})).listen(process.argv[2] || config.port)
+        var locals = merge()
+        res.render('index.jade', locals)
+    }))
+    .use(route.get('/:type', function(req, res) {
+        var type = req.params.type
+        var locals = merge(type)
+        res.render('index.jade', locals)
+    }))
+    .listen(process.argv[2] || config.port)
 
 var sites = 'zhanqi douyu huomao huya six'.split(' ')
 
 var COL = 4 // 每行3个
 
-function merge() {
+var ALL_TYPES = '英雄联盟 DOTA2 炉石传说 其他 看球'.split(' ')
+
+function merge(type) {
     var uniq = {}
     sites.forEach(function(site) {
         var arr = data[site]
@@ -50,12 +58,27 @@ function merge() {
     var items = arr.sort(function(a, b) {
         return b.people - a.people
     })
-    'DOTA2 英雄联盟 炉石传说 其他 看球'.split(' ').forEach(function(x) {
+    var types, row
+    if (type) {
+        types = [type]
+        row = 8
+    } else {
+        types = ALL_TYPES
+        row = 2
+    }
+    types.forEach(function(x) {
         ret[x] = items.filter(function(item) {
             return item._gameType == x
-        }).slice(0, COL * 2)
+        }).slice(0, COL * row)
     })
-    ret.hot = items.slice(0, COL * 2)
+    if (type) {
+        ret.hot = null
+        ret.type = type
+    } else {
+        ret.type = null
+        ret.hot = items.slice(0, COL * row)
+    }
+    ret.types = ALL_TYPES
     ret.items = items
     return ret
 }
