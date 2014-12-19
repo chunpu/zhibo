@@ -14,6 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "init": "npm install && mkdir -p dist",
+    "prestart": "npm run build",
     "start": "pm2 start zhibo.js -- 8888",
     "restart": "pm2 restart zhibo",
     "stop": "pm2 delete zhibo",
