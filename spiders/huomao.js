@@ -3,12 +3,13 @@ var cheerio = require('cheerio')
 var request = require('request')
 var util = require('./util')
 var async = require('async')
+var debug = require('debug')('huomao')
 
 var BASE_URL = 'http://www.huomaotv.com/'
 
 
 module.exports = function(cb) {
-    cb = cb || noop
+    cb = cb || util.noop
     request({
         url: 'http://www.huomaotv.com/live_list',
         headers: {
@@ -22,7 +23,7 @@ module.exports = function(cb) {
         }
         var $ = cheerio.load(body)
         var arr = $('.VOD')
-        console.log('huomao', arr.length)
+        debug('huomao', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)

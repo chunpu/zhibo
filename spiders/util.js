@@ -1,9 +1,19 @@
 var url = require('url')
+var debug = require('debug')('spider-util')
 
 function util(obj) {
     obj.people = util.people(obj.people)
     obj.href = util.url(obj.baseurl, obj.href)
+    obj.anchor = util.anchor(obj.anchor)
     obj._gameType = util.gameType(obj.gameType)
+}
+
+util.anchor = function(anchor) {
+    anchor = anchor + ''
+    if (anchor.length > 10) {
+        return anchor.substr(0, 7) + '...'
+    }
+    return anchor
 }
 
 util.people = function(number) {
@@ -39,12 +49,19 @@ util.gameType = function(gameType) {
 }
 
 util.url = function(base, path) {
+    if (path && path.indexOf('http://') != -1) {
+        return path
+    }
     var base = url.parse(base)
     return url.format({
         protocol: base.protocol,
         host: base.host,
         pathname: path
     })
+}
+
+util.noop = function () {
+    console.warn('cb is null')
 }
 
 module.exports = util

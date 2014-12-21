@@ -8,7 +8,7 @@ var debug = require('debug')('zhanqi')
 var BASE_URL = 'http://www.zhanqi.tv/'
 
 module.exports = function(cb) {
-    cb = cb || noop
+    cb = cb || util.noop
     request({
         url: 'http://www.zhanqi.tv/api/static/live.hots/200-1.json',
         headers: {

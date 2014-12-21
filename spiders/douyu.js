@@ -8,7 +8,7 @@ var BASE_URL = 'http://www.douyutv.com/'
 var MIN_LEN = 10
 
 module.exports = function(cb) {
-    cb = cb || noop
+    cb = cb || util.noop
     async.map([0, 100], function(x, cb) {
         request({
             url: 'http://www.douyutv.com/directory/all?limit=100&offset=' + x,

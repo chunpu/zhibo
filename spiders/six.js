@@ -8,7 +8,7 @@ var debug = require('debug')('six')
 var BASE_URL = 'http://www.6.cn/'
 
 module.exports = function(cb) {
-    cb = cb || noop
+    cb = cb || util.noop
     request({
         url: 'http://www.6.cn/liveAjax.html',
         headers: {
