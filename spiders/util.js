@@ -9,10 +9,13 @@ function util(obj) {
 }
 
 util.anchor = function(anchor) {
-    anchor = anchor + ''
+    anchor = (anchor + '').trim()
+    /*
+    TODO: do it in jade
     if (anchor.length > 10) {
         return anchor.substr(0, 7) + '...'
     }
+    */
     return anchor
 }
 
@@ -28,7 +31,8 @@ var match = {
     '英雄联盟': ['lol'],
     'DOTA2': [],
     '炉石传说': ['炉石'],
-    '看球': []
+    '看球': ['卖萌日常'],
+    '秀场': []
 }
 
 util.gameType = function(gameType) {

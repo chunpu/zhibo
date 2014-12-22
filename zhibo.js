@@ -8,6 +8,7 @@ var data = require('./data')
 var wechat = require('./wechat/services')
 var config = require('./config')
 var debug = require('debug')('zhibo')
+var ballUtil = require('./utils/ball')
 
 // 防抓取技巧, 懒加载
 
@@ -37,7 +38,7 @@ var sites = 'zhanqi douyu huomao huya six'.split(' ')
 
 var COL = 4 // 每行3个
 
-var ALL_TYPES = '英雄联盟 DOTA2 炉石传说 其他 看球'.split(' ')
+var ALL_TYPES = '英雄联盟 DOTA2 炉石传说 看球 其他 秀场'.split(' ')
 
 function merge(type) {
     var uniq = {}
@@ -68,6 +69,9 @@ function merge(type) {
     }
     types.forEach(function(x) {
         ret[x] = items.filter(function(item) {
+            if (x == '看球' && ballUtil.isBall(item)) {
+                return true
+            }
             return item._gameType == x
         }).slice(0, COL * row)
     })

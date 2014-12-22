@@ -76,7 +76,7 @@ function getGirls(cb) {
                 , title: me.nick
                 , anchor: me.nick
                 , people: me.userCount
-                , gameType: '看球'
+                , gameType: '秀场'
                 , baseurl: BASE_URL
                 , platform: '虎牙'
             }

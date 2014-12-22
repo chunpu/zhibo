@@ -37,7 +37,7 @@ module.exports = function(cb) {
                 , img: x.pic
                 , title: x.username
                 , anchor: x.username
-                , gameType: '看球'
+                , gameType: '秀场'
                 , people: x.count
                 , baseurl: BASE_URL
             }
