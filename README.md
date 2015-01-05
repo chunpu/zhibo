@@ -1,7 +1,4 @@
 zhibo
 =====
 
-zhibo tv
-
-
-zhibola.tv ?
+juzhibo.tv

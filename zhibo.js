@@ -24,26 +24,56 @@ app
     .use(route.get('/wechat/juzhibotv', wechat.authenticate))
     .use(route.post('/wechat/juzhibotv', wechat.reply))
     .use(route.get('/', function(req, res) {
-        var locals = merge()
+        var website = req.query.site
+        var locals = merge(null, website)
         res.render('index.jade', locals)
     }))
     .use(route.get('/:type', function(req, res) {
         var type = req.params.type
-        var locals = merge(type)
+        var website = req.query.site
+        var locals = merge(type, website)
         res.render('index.jade', locals)
     }))
     .listen(process.argv[2] || config.port)
 
-var sites = 'zhanqi douyu huomao huya six'.split(' ')
+var ALL_SITES = 'zhanqi douyu huomao huya six'.split(' ')
+var SITES_CONF = {
+    'zhanqi': {
+        name: '战旗',
+        link: 'http://www.zhanqi.tv'
+    },
+    'douyu': {
+        name: '斗鱼',
+        link: 'http://www.douyutv.com'
+    },
+    'huomao': {
+        name: '火猫',
+        link: 'http://www.huomaotv.com'
+    },
+    'huya': {
+        name: '虎牙',
+        link: 'http://www.huya.com'
+    },
+    'six': {
+        name: '六间房',
+        link: 'http://www.6.cn'
+    }
+}
 
 var COL = 4 // 每行3个
 
 var ALL_TYPES = '英雄联盟 DOTA2 炉石传说 看球 其他 秀场'.split(' ')
 
-function merge(type) {
+function merge(type, website) {
     var uniq = {}
-    sites.forEach(function(site) {
-        var arr = data[site]
+    var websites
+    if (website) {
+        websites = [website]
+    } else {
+        websites = ALL_SITES
+    }
+    websites.forEach(function(website) {
+        var arr = data[website]
         if (!Array.isArray(arr)) return
         arr.forEach(function(x) {
             if (x.title) {
@@ -82,7 +112,14 @@ function merge(type) {
         ret.type = null
         ret.hot = items.slice(0, COL * row)
     }
+    if (website) {
+        ret.website = website
+    } else {
+        ret.website = null
+    }
     ret.types = ALL_TYPES
+    ret.websites = ALL_SITES
+    ret.SITES_CONF = SITES_CONF
     ret.items = items
     return ret
 }

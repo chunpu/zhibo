@@ -38,9 +38,31 @@ mixin filter(active, all)
                     li.filter
                         a(href='/'+item)= item
 
+mixin websites(active, all, confs)
+    .websites
+        ul
+            if active
+                li.website
+                    a.label(href='?')= '全部'
+            else
+                li.website.active
+                    a.label(href='?')= '全部'
+            each item in all
+                if active == item
+                    li.website.active
+                        a.label(href='?site='+item)= confs[item].name
+                        a.link(href=confs[item].link target='_blank')= ' ✈'
+                else
+                    li.website
+                        a.label(href='?site='+item)= confs[item].name
+                        a.link(href=confs[item].link target='_blank')= ' ✈'
+
 extend layout
 block content
     +filter(locals.type, locals.types)
+    br
+    hr
+    +websites(locals.website, locals.websites, locals.SITES_CONF)
     +column('当前最热', locals.hot)
     +column('英雄联盟', locals['英雄联盟'])
     +column('DOTA2', locals['DOTA2'])
