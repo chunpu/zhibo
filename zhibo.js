@@ -16,6 +16,8 @@ runSpiders()
 
 setInterval(runSpiders, 100000)
 
+var port = process.argv[2] || config.port
+
 app.engine('jade', require('jade').__express).set('views', __dirname + '/views')
 
 app
@@ -32,7 +34,9 @@ app
         var locals = merge(type)
         res.render('index.jade', locals)
     }))
-    .listen(process.argv[2] || config.port)
+    .listen(port, function() {
+		console.log('listen on: %d', port)
+	})
 
 var sites = 'zhanqi douyu huomao huya six'.split(' ')
 
