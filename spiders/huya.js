@@ -10,7 +10,7 @@ var BASE_URL = 'http://www.huya.com/'
 function getGames(cb) {
     cb = cb || util.noop
     request({
-        url: 'http://www.huya.com/',
+        url: 'http://www.huya.com/l',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.103 Safari/537.36',
@@ -21,16 +21,16 @@ function getGames(cb) {
             return cb(err)
         }
         var $ = cheerio.load(body)
-        var arr = $('.index-list__top .index-list-item')
+        var arr = $('.video-list-item')
         debug('huya game', arr.length)
         var ret = []
         arr.each(function() {
             var me = $(this)
             var obj = {
                   href: me.find('a.video-info').attr('href')
-                , img: me.find('img.pic').attr('data-original')
-                , title: me.find('a.title').text()
-                , anchor: me.find('a.title').text()
+                , img: me.find('img.pic').attr('src')
+                , title: me.find('.all_live_tit a').text()
+                , anchor: me.find('.all_live_nick').text()
                 , people: me.find('.num').text().replace('个观众', '')
                 , gameType: me.find('.game-type').text().trim()
                 , baseurl: BASE_URL
